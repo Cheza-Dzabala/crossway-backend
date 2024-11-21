@@ -26,14 +26,10 @@ DB_PASSWORD=os.getenv('DB_PASSWORD')
 DB_HOST=os.getenv('DB_HOST')
 DB_PORT=os.getenv('DB_PORT')
 DB_SSLMODE=os.getenv('DB_SSLMODE')
-DEBUG_MODE=os.getenv('DEBUG_MODE')
-
-def str_to_bool(value):
-    return value.lower() in ("true", "1", "yes")
+IN_PRODUCTION = os.getenv('DJANGO_PRODUCTION', 'False') == 'True'
 
 # Example usage
 
-DEBUG_MODE = str_to_bool(DEBUG_MODE)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -42,12 +38,13 @@ DEBUG_MODE = str_to_bool(DEBUG_MODE)
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 
-if DEBUG_MODE:
-    DEBUG = True
-    ALLOWED_HOSTS = ['*']
-else:
+if IN_PRODUCTION:
     DEBUG = False
-    ALLOWED_HOSTS = ['crosswayapp.pythonanywhere.com']
+    ALLOWED_HOSTS = ['crosswayapp.pythonanywhere.com', 'localhost', '127.0.0.1']
+else:
+    DEBUG = True
+    ALLOWED_HOSTS = ['*', 'localhost', '127.0.0.1']
+
 
 # Application definition
 
