@@ -20,7 +20,7 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv()
 
-allowedHosts = os.getenv('ALLOWED_HOSTS').split(' ')
+allowedHosts = os.getenv('ALLOWED_HOSTS')
 
 print(allowedHosts)
 
@@ -43,7 +43,7 @@ SECRET_KEY = "django-insecure-u5l1lq12*!u0*f8$x$nqbye7(jo70zcz@g7pnxm9dzvh!ex)ia
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = allowedHosts
+ALLOWED_HOSTS = [allowedHosts]
 
 
 # Application definition
