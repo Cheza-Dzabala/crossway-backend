@@ -20,9 +20,9 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv()
 
-allowedHosts = os.getenv('ALLOWED_HOSTS')
+ALLOWED_HOSTS_ENV = os.getenv("ALLOWED_HOSTS", "").split(",")
 
-print(allowedHosts)
+print(ALLOWED_HOSTS_ENV)
 
 DB_NAME=os.getenv('DB_NAME')
 DB_USER=os.getenv('DB_USER')
@@ -30,8 +30,6 @@ DB_PASSWORD=os.getenv('DB_PASSWORD')
 DB_HOST=os.getenv('DB_HOST')
 DB_PORT=os.getenv('DB_PORT')
 DB_SSLMODE=os.getenv('DB_SSLMODE')
-
-print(allowedHosts)
 
 
 # Quick-start development settings - unsuitable for production
@@ -43,7 +41,7 @@ SECRET_KEY = "django-insecure-u5l1lq12*!u0*f8$x$nqbye7(jo70zcz@g7pnxm9dzvh!ex)ia
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [allowedHosts]
+ALLOWED_HOSTS = ALLOWED_HOSTS_ENV
 
 
 # Application definition
