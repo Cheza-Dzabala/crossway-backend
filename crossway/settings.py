@@ -18,7 +18,9 @@ from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-load_dotenv()
+
+load_dotenv(BASE_DIR / '.env')
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 DB_NAME=os.getenv('DB_NAME')
 DB_USER=os.getenv('DB_USER')
@@ -35,13 +37,15 @@ IN_PRODUCTION = os.getenv('DJANGO_PRODUCTION', 'False') == 'True'
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-u5l1lq12*!u0*f8$x$nqbye7(jo70zcz@g7pnxm9dzvh!ex)ia'
+
 
 
 if IN_PRODUCTION:
+    print('DEBUG = False')
     DEBUG = False
     ALLOWED_HOSTS = ['crosswayapp.pythonanywhere.com', 'localhost', '127.0.0.1']
 else:
+    print('DEBUG = True')
     DEBUG = True
     ALLOWED_HOSTS = ['*', 'localhost', '127.0.0.1']
 
