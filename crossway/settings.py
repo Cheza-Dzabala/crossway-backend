@@ -20,7 +20,7 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv()
 tmpPostgres = urlparse(os.getenv('DATABASE_URL'))
-allowedHosts = urlparse(os.getenv('ALLOWED_HOSTS'))
+allowedHosts = os.getenv('ALLOWED_HOSTS')
 
 
 # Quick-start development settings - unsuitable for production
