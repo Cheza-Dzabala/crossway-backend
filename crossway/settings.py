@@ -19,8 +19,17 @@ from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv()
-tmpPostgres = urlparse(os.getenv('DATABASE_URL'))
-allowedHosts = os.getenv('ALLOWED_HOSTS')
+
+allowedHosts = os.getenv('ALLOWED_HOSTS').split(' ')
+
+DB_NAME=os.getenv('DB_NAME')
+DB_USER=os.getenv('DB_USER')
+DB_PASSWORD=os.getenv('DB_PASSWORD')
+DB_HOST=os.getenv('DB_HOST')
+DB_PORT=os.getenv('DB_PORT')
+DB_SSLMODE=os.getenv('DB_SSLMODE')
+
+print(allowedHosts)
 
 
 # Quick-start development settings - unsuitable for production
@@ -32,7 +41,7 @@ SECRET_KEY = "django-insecure-u5l1lq12*!u0*f8$x$nqbye7(jo70zcz@g7pnxm9dzvh!ex)ia
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [allowedHosts]
+ALLOWED_HOSTS = allowedHosts
 
 
 # Application definition
@@ -110,11 +119,12 @@ WSGI_APPLICATION = "crossway.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': tmpPostgres.path.decode('utf-8').replace('/', ''),
-        'USER': tmpPostgres.username,
-        'PASSWORD': tmpPostgres.password,
-        'HOST': tmpPostgres.hostname,
-        'PORT': 5432,
+        'NAME':  DB_NAME,
+        'USER': DB_USER,
+        'PASSWORD': DB_PASSWORD,
+        'HOST': DB_HOST,
+        'PORT': DB_PORT,
+
     }
 }
 # DATABASES = {
