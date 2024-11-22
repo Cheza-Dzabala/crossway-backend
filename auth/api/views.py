@@ -19,10 +19,10 @@ def login(request):
     phone_number = request.data['phone_number']
     password = request.data['password']
     
-    user = User.objects.get(phone_number=phone_number)
-    
-    if not user.is_active:
-        return Response({'message': 'Account is not active'}, status=400)
+    try:
+        user = User.objects.get(phone_number=phone_number, is_active=True)
+    except User.DoesNotExist:
+        return Response({'message': 'User not found'}, status=404)
     
     if not user.check_password(password):
         return Response({'message': 'Invalid credentials'}, status=400)
@@ -37,14 +37,16 @@ def login(request):
     
     serializedUser = UserSerializer(user, many=False)
     
-    return Response({'token': {
-        'access': token,
-        'refresh': str(refresh)
-        },
+    return Response({
+        'message': 'Successfully logged in',
                      'response': {
                          'user': serializedUser.data, 
                          'driver': driver_data
                          },
+                     'token': {
+                        'access': token,
+                        'refresh': str(refresh)
+                        },
                      })
     
     
@@ -70,8 +72,11 @@ def register(request):
             token = str(refresh.access_token)
             user.set_password(request.data['password'])
             user.save()
-            return Response({'token': {
+            return Response({
+                'message': 'Successfully logged in',
+                'response': {'token': {
                 'access': token,
                 'refresh': str(refresh)
-                }, 'user': serializer.data})
+                }, 'user': serializer.data, 'driver': None,}
+            })
         return Response(serializer.errors, status=400)
