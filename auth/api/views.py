@@ -41,7 +41,6 @@ def login(request):
         'access': token,
         'refresh': str(refresh)
         },
-                     'driver_data': driver_data,
                      'response': {
                          'user': serializedUser.data, 
                          'driver': driver_data
