@@ -41,12 +41,13 @@ def login(request):
         'message': 'Successfully logged in',
                      'response': {
                          'user': serializedUser.data, 
-                         'driver': driver_data
+                         'driver': driver_data,
+                             'token': {
+                                'access': token,
+                                'refresh': str(refresh)
+                                },
                          },
-                     'token': {
-                        'access': token,
-                        'refresh': str(refresh)
-                        },
+                 
                      })
     
     
@@ -74,9 +75,12 @@ def register(request):
             user.save()
             return Response({
                 'message': 'Successfully logged in',
-                'response': {'token': {
+                'response': {
+                'token': {
                 'access': token,
                 'refresh': str(refresh)
-                }, 'user': serializer.data, 'driver': None,}
+                }, 
+                'user': serializer.data, 'driver': None,
+                }
             })
         return Response(serializer.errors, status=400)
