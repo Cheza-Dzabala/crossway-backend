@@ -31,23 +31,25 @@ def login(request):
     token = str(refresh.access_token)
     
     driver_data = None
-    if hasattr(user, 'driver') and user.driver is not None:
-            serializedDriver = DriverSerializer(user.driver, many=False)
-            driver_data = serializedDriver.data
+    if user.role == 'driver':
+        if hasattr(user, 'driver') and user.driver is not None:
+                serializedDriver = DriverSerializer(user.driver, many=False)
+                driver_data = serializedDriver.data
     
     serializedUser = UserSerializer(user, many=False)
     
+    responseContext = {
+        'user': serializedUser.data,
+        **({'driver': driver_data} if driver_data else {}),
+        'token': {
+            'access': token,
+            'refresh': str(refresh)
+        },
+    }
+    
     return Response({
         'message': 'Successfully logged in',
-                     'response': {
-                         'user': serializedUser.data, 
-                         'driver': driver_data,
-                             'token': {
-                                'access': token,
-                                'refresh': str(refresh)
-                                },
-                         },
-                 
+                     'response':  responseContext,
                      })
     
     
