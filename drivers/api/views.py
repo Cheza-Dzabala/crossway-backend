@@ -37,6 +37,8 @@ class DriverApi(APIView):
         # Set the user role to driver
         user.role = 'driver'
         
+
+        
     
         # Use the serializer for validation and saving
         serializer = DriverSerializer(data=request_data)
@@ -45,7 +47,7 @@ class DriverApi(APIView):
         if driver.exists():
                 return Response({
                     'message': 'User already has driver profile',
-                    'errors': serializer.errors
+                    'errors': {}
                 }, status=400)
         
         if serializer.is_valid():

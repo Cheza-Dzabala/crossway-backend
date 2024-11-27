@@ -29,6 +29,7 @@ urlpatterns = [
 	path('api/', include('api.urls')),
 	path('api/users/', include('users.api.urls')),
     path('api/drivers/', include('drivers.api.urls')),
+    path('api/vehicles/', include('vehicles.api.urls')),
     path('api/auth/', include('auth.api.urls')),
 	path('', include('base.urls')), 
 ]

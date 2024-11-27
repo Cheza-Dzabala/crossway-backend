@@ -12,9 +12,6 @@ class Driver(models.Model):
     is_active = models.BooleanField(default=False)
     is_banned = models.BooleanField(default=False)
     ban_reason = models.CharField(max_length=500, null=False, blank=True, default='')
-        
-        
-
     
     def __str__(self):
         return self.user.name
