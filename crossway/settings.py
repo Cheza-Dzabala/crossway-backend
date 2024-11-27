@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'base.apps.BaseConfig',
     'vehicles.apps.VehiclesConfig',
     'drivers.apps.DriversConfig',
+    'trip_preferences.apps.TripPreferencesConfig',
 ]
 
 AUTH_USER_MODEL = 'users.User'

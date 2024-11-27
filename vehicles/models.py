@@ -33,7 +33,7 @@ class Vehicle(models.Model):
     
     
     def __str__(self):
-        return self.driver.user.name
+        return self.license_plate
     
 
 # Vehicle Image model
