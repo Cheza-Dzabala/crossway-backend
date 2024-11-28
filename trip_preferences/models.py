@@ -13,10 +13,10 @@ class TripPreferences(models.Model):
     
 class RidePreference(models.Model):
     ride = models.ForeignKey(Ride, on_delete=models.CASCADE, related_name='preferences')
-    preference = models.ForeignKey(TripPreferences, on_delete=models.CASCADE, related_name='driver_preferences')
+    preference = models.ForeignKey(TripPreferences, on_delete=models.CASCADE, related_name='trip_preferences')
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.driver.user.name} - {self.preference.name}"
+        return f"{self.ride.vehicle.driver.user.name} - {self.preference.name}"
     
 

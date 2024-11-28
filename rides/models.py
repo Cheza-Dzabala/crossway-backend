@@ -12,6 +12,9 @@ class Ride(models.Model):
     estimated_arrival = models.DateTimeField()
     departure_location = gis_models.PointField()
     arrival_location = gis_models.PointField()
+    is_active = models.BooleanField(default=False)
+    capacity = models.IntegerField()
+    
 
     
     def __str__(self):
