@@ -23,7 +23,7 @@ class DriverApi(APIView):
         serializedDriver = DriverSerializer(driver, many=False)
         return Response({
             'message': 'Driver profile fetched successfully',
-            'data': serializedDriver.data
+            'data': serializedDriver.data 
         }, status=200)
 
     def post(self, request):

@@ -18,8 +18,8 @@ class VehiclesAPI(APIView):
                 'errors': {}
             }, status=404)
             
-        vehicles = Vehicle.objects.filter(driver=driver).first()
-        vehicles_serializer = VehicleSerializer(vehicles, many=False)
+        vehicles = Vehicle.objects.filter(driver=driver).all()
+        vehicles_serializer = VehicleSerializer(vehicles, many=True)
         return Response({
             'message': 'Vehicle fetched successfully',
             'data': vehicles_serializer.data

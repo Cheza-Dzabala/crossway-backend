@@ -1,5 +1,6 @@
 from django.db import models
 from drivers.models import Driver
+from rides.models import Ride
 # Create your models here.
 
 class TripPreferences(models.Model):
@@ -10,8 +11,8 @@ class TripPreferences(models.Model):
     def __str__(self):
         return self.name
     
-class DriverPreference(models.Model):
-    driver = models.ForeignKey(Driver, on_delete=models.CASCADE, related_name='preferences')
+class RidePreference(models.Model):
+    ride = models.ForeignKey(Ride, on_delete=models.CASCADE, related_name='preferences')
     preference = models.ForeignKey(TripPreferences, on_delete=models.CASCADE, related_name='driver_preferences')
     created_at = models.DateTimeField(auto_now_add=True)
 

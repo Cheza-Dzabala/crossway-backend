@@ -30,6 +30,9 @@ DB_PORT=os.getenv('DB_PORT')
 DB_SSLMODE=os.getenv('DB_SSLMODE')
 IN_PRODUCTION = os.getenv('DJANGO_PRODUCTION', 'False') == 'True'
 
+GDAL_LIBRARY_PATH = os.getenv('GDAL_LIBRARY_PATH')
+GEOS_LIBRARY_PATH = os.getenv('GEOS_LIBRARY_PATH')
+
 # Example usage
 
 
@@ -62,11 +65,15 @@ INSTALLED_APPS = [
     'bootstrap5',
 	'rest_framework',
     'rest_framework_simplejwt',
+    'rest_framework_gis',
+    'django.contrib.gis',
+    'mapwidgets',
 	'users.apps.UsersConfig',
     'base.apps.BaseConfig',
     'vehicles.apps.VehiclesConfig',
     'drivers.apps.DriversConfig',
     'trip_preferences.apps.TripPreferencesConfig',
+    'rides.apps.RidesConfig',
 ]
 
 AUTH_USER_MODEL = 'users.User'
@@ -125,7 +132,7 @@ WSGI_APPLICATION = "crossway.wsgi.application"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME':  DB_NAME,
         'USER': DB_USER,
         'PASSWORD': DB_PASSWORD,
@@ -194,3 +201,30 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+MAP_WIDGETS = {
+    "GoogleMap": {
+        "apiKey": 'AIzaSyC1j1RW-fGyxl_zQh1kHPMVHBNbS1pzy9I',
+        # https://maps.googleapis.com/maps/api/js?language={}&libraries={}&key={}&v={}"
+        "CDNURLParams": {
+            "language": "en",
+            "libraries": "places,marker",
+            "loading": "async",
+            "v": "quarterly",
+        },
+        "PointField": {
+            "interactive": {
+                "mapOptions": {
+                    "zoom": 12,
+                    "scrollwheel": False,
+                    "streetViewControl": True,
+                    "center": ('-15.7862606', '35.0095248'),
+                },
+                "GooglePlaceAutocompleteOptions": {'componentRestrictions': {'country': 'mw'}},
+                "mapCenterLocationName": "Blantyre",
+                "markerFitZoom": 14,
+            },
+        },
+    }
+}

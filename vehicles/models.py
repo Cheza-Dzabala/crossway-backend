@@ -2,7 +2,7 @@ from django.db import models
 from drivers.models import Driver 
 # Create your models here.
 class Vehicle(models.Model):
-    driver = models.OneToOneField(Driver, on_delete=models.CASCADE, related_name='vehicle')
+    driver = models.ForeignKey(Driver, on_delete=models.CASCADE, related_name='vehicles')
     is_approved = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
