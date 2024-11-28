@@ -33,6 +33,7 @@ IN_PRODUCTION = os.getenv('DJANGO_PRODUCTION', 'False') == 'True'
 GDAL_LIBRARY_PATH = os.getenv('GDAL_LIBRARY_PATH')
 GEOS_LIBRARY_PATH = os.getenv('GEOS_LIBRARY_PATH')
 
+GOOGLE_MAPS_API_KEY = os.getenv('GOOGLE_MAPS_API_KEY')
 # Example usage
 
 
@@ -205,7 +206,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MAP_WIDGETS = {
     "GoogleMap": {
-        "apiKey": 'AIzaSyC1j1RW-fGyxl_zQh1kHPMVHBNbS1pzy9I',
+        "apiKey": GOOGLE_MAPS_API_KEY,
         # https://maps.googleapis.com/maps/api/js?language={}&libraries={}&key={}&v={}"
         "CDNURLParams": {
             "language": "en",
